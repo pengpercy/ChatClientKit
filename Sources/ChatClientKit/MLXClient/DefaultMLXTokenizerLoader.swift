@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 import Foundation
 import MLXLMCommon
 import Tokenizers
@@ -56,3 +58,5 @@ private struct TokenizerBridge: MLXLMCommon.Tokenizer {
         }
     }
 }
+
+#endif

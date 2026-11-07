@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 import Foundation
 import MLXLMCommon
 
@@ -27,3 +29,5 @@ enum MLXToolCallFormatDetector {
         return nil
     }
 }
+
+#endif

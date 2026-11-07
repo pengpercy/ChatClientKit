@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 @testable import ChatClientKit
 import CoreImage
 import Foundation
@@ -206,3 +208,5 @@ struct MLXVisionInputTests {
 private enum MLXVisionInputTestError: Error {
     case expectedStructuredChat
 }
+
+#endif

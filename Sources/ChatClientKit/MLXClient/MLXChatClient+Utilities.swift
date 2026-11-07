@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 //
 //  MLXChatClient+Utilities.swift
 //  ChatClientKit
@@ -232,3 +234,5 @@ extension MLXChatClient {
         }
     }
 }
+
+#endif

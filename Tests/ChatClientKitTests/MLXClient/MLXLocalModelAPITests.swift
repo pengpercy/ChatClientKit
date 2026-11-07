@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 @testable import ChatClientKit
 import Foundation
 import MLXLMCommon
@@ -180,3 +182,5 @@ struct MLXLocalModelAPITests {
         #expect(low.temperature == 0)
     }
 }
+
+#endif

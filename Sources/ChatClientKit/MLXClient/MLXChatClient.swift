@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 import Foundation
 @preconcurrency import MLXLMCommon
 
@@ -40,3 +42,5 @@ public class MLXChatClient: ChatService, @unchecked Sendable {
         }
     }
 }
+
+#endif

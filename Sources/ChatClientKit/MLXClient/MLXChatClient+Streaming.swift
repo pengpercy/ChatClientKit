@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 //
 //  MLXChatClient+Streaming.swift
 //  ChatClientKit
@@ -422,3 +424,5 @@ private func toolCallArgsToJSON(_ arguments: [String: JSONValue]) -> String {
     }
     return json
 }
+
+#endif

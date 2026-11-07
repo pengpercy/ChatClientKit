@@ -11,7 +11,9 @@ import CoreGraphics
 import Foundation
 import FoundationModels
 import ImageIO
-@preconcurrency import MLX
+#if canImport(MLX)
+    @preconcurrency import MLX
+#endif
 import Testing
 
 /// Helper functions for tests
@@ -28,9 +30,13 @@ enum TestHelpers {
         guard #available(iOS 17.0, macOS 14.0, macCatalyst 17.0, *) else {
             return false
         }
-        guard !MLX.GPU.deviceInfo().architecture.isEmpty else {
+        #if canImport(MLX)
+            guard !MLX.GPU.deviceInfo().architecture.isEmpty else {
+                return false
+            }
+        #else
             return false
-        }
+        #endif
         return fixtureURL(named: "mlx_testing_model") != nil
     }
 
@@ -244,9 +250,13 @@ enum TestHelpers {
         guard #available(iOS 17.0, macOS 14.0, macCatalyst 17.0, *) else {
             return false
         }
-        guard !MLX.GPU.deviceInfo().architecture.isEmpty else {
+        #if canImport(MLX)
+            guard !MLX.GPU.deviceInfo().architecture.isEmpty else {
+                return false
+            }
+        #else
             return false
-        }
+        #endif
         return true
     }
 

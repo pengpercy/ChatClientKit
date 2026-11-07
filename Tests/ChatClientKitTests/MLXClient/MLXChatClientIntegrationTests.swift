@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 //
 //  MLXChatClientIntegrationTests.swift
 //  ChatClientKitTests
@@ -163,3 +165,5 @@ struct MLXChatClientIntegrationTests {
         }
     }
 }
+
+#endif

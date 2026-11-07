@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 //
 //  MLXImageUtilities.swift
 //  ChatClientKit
@@ -99,3 +101,5 @@ enum MLXImageUtilities {
         return normalize(image: cropped)
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 //
 //  MLXModelCoordinatorTests.swift
 //  ChatClientKitTests
@@ -178,3 +180,5 @@ private enum TestFixtures {
         return repoFixture
     }
 }
+
+#endif

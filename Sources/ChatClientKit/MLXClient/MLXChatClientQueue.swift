@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 //
 //  MLXChatClientQueue.swift
 //  ChatClientKit
@@ -41,3 +43,5 @@ public class MLXChatClientQueue: @unchecked Sendable {
         semaphore.signal()
     }
 }
+
+#endif

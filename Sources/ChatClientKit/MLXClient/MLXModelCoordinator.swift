@@ -1,3 +1,5 @@
+#if canImport(MLXLMCommon)
+
 //
 //  MLXModelCoordinator.swift
 //  ChatClientKit
@@ -180,3 +182,5 @@ public actor MLXModelCoordinator: MLXModelCoordinating {
         pendingTask = nil
     }
 }
+
+#endif
