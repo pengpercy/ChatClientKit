@@ -48,7 +48,10 @@ public class AppleIntelligenceChatClient: ChatService, @unchecked Sendable {
         persona: String
     ) throws -> SessionContext {
         let selectedTools = try body.selectedTools()
-        let tools = try makeToolProxies(from: selectedTools)
+        let tools = try AppleIntelligenceToolProxy.makeProxies(
+            from: selectedTools,
+            toolChoice: body.toolChoice
+        ).tools
 
         let instructionText = AppleIntelligencePromptBuilder.makeInstructions(
             persona: persona,
@@ -89,21 +92,6 @@ public class AppleIntelligenceChatClient: ChatService, @unchecked Sendable {
         )
 
         return SessionContext(session: session, prompt: prompt, options: options)
-    }
-
-    func makeToolProxies(
-        from tools: [ChatRequestBody.Tool]
-    ) throws -> [any Tool] {
-        try tools.map { tool -> any Tool in
-            switch tool {
-            case let .function(name, description, parameters, _):
-                return try AppleIntelligenceToolProxy(
-                    name: name,
-                    description: description,
-                    parameters: parameters
-                ) as any Tool
-            }
-        }
     }
 
     func clampTemperature(_ value: Double) -> Double {
@@ -171,9 +159,15 @@ public class AppleIntelligenceChatClient: ChatService, @unchecked Sendable {
 }
 
 struct AppleIntelligenceStreamState {
-    private var accumulatedText = ""
+    private(set) var accumulatedText = ""
 
     mutating func textChunk(for fullText: String) -> ChatResponseChunk? {
+        delta(for: fullText).map { .text($0) }
+    }
+
+    /// The text added since the previous snapshot, or nil when nothing was
+    /// added or the snapshot rewrote earlier text.
+    mutating func delta(for fullText: String) -> String? {
         guard fullText.hasPrefix(accumulatedText) else {
             accumulatedText = fullText
             return nil
@@ -185,7 +179,7 @@ struct AppleIntelligenceStreamState {
         )
         let delta = String(fullText[deltaStart...])
         accumulatedText = fullText
-        return delta.isEmpty ? nil : .text(delta)
+        return delta.isEmpty ? nil : delta
     }
 
     func toolChunk(for request: ToolRequest) -> ChatResponseChunk {
